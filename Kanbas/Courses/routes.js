@@ -39,13 +39,13 @@ export default function CourseRoutes(app) {
   });
 
 
-  app.get("/api/courses/:assignmentId/assignments", (req, res) => {
+  app.get("/api/courses/:courseId/assignments", (req, res) => {
     const { courseId } = req.params;
     const assignments = assignmentsDao.findAssignmentsForCourse(courseId);
     res.json(assignments);
   });
 
-  app.post("/api/courses/:assignmentId/assignments", (req, res) => {
+  app.post("/api/courses/:courseId/assignments", (req, res) => {
     const { courseId } = req.params;
     const assignment = {
       ...req.body,
