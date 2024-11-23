@@ -12,7 +12,6 @@ import session from "express-session";
 import "dotenv/config";
 
 const app = express()
-app.use(express.json());
 
 app.use(cors({
     credentials: true,
@@ -32,6 +31,8 @@ app.use(cors({
       domain: process.env.REMOTE_SERVER,
     };
   }
+  
+  app.use(express.json());
   app.use(session(sessionOptions));
   
   
