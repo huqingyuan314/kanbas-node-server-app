@@ -31,7 +31,7 @@ app.use(cors({
       domain: process.env.REMOTE_SERVER,
     };
   }
-  
+
   app.use(express.json());
   app.use(session(sessionOptions));
   
