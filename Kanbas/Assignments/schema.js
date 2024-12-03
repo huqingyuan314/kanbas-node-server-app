@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const schema = new mongoose.Schema(
   {
-    name: String,
+    title: String,
     description: String,
     points: Number,
     dueDate: Date,
