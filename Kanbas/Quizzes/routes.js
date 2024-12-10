@@ -1,6 +1,7 @@
 import * as quizzesDao from "./dao.js";
+import * as questionsDao from "../Questions/dao.js";
 
-export default function ModuleRoutes(app) {
+export default function QuizRoutes(app) {
   
  app.delete("/api/quizzes/:quizId", async (req, res) => {
    const { quizId } = req.params;
@@ -13,6 +14,23 @@ export default function ModuleRoutes(app) {
     const quizUpdates = req.body;
     const status = await quizzesDao.updateQuiz(quizId, quizUpdates);
     res.send(status);
+  });
+
+
+  app.get("/api/quizzes/:quizId/questions", async (req, res) => {
+    const { quizId } = req.params;
+    const questions = await questionsDao.findQuestionsForQuiz(quizId);
+    res.json(questions);
+  });
+
+  app.post("/api/quizzes/:quizId/questions", async (req, res) => {
+    const { quizId } = req.params;
+    const question = {
+      ...req.body,
+      quiz: quizId,
+    };
+    const newQuestion = await questionsDao.createQuestion(question);
+    res.send(newQuestion);
   });
 
 }
