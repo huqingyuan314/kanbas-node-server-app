@@ -12,17 +12,18 @@ const schema = new mongoose.Schema(
     },
 
     choices: [{
-      identifier: { type: String, required: true },
-      text: { type: String, required: true }, // Text of the choice
+      identifier: { type: String },
+      text: { type: String }, // Text of the choice
     }],
-    correctAnswers: [{ // Store identifiers of correct answers
+    choicesAnswer: {
       type: String,
-      required: true
-    }],
+    },
 
-    trueFalse: { type: Boolean, default: true},
+    trueFalse: { type: Boolean },
+    // trueFalseAnswer: { type: Boolean },
 
-    blank: { type: String, default: "" },
+    blanks: [{ type: String }],
+    // blanksAnswer: { type: String, default: "" },
 
     quiz: { type: mongoose.Schema.Types.ObjectId, ref: "QuizModel" },
   },

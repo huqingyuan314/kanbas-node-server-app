@@ -10,7 +10,7 @@ const schema = new mongoose.Schema(
       enum: ["GRADED-QUIZ", "PRACTICE-QUIZ", "GRADED-SURVEY", "UNGRADED-SURVEY"],
       default: "GRADED-QUIZ",
     },
-    points: { type: Number, default: 100 },
+    points: { type: Number, default: 0 },
     assignmentGroup: {
       type: String,
       enum: ["QUIZZES", "EXAMS", "ASSIGNMENTS", "PROJECT"],
