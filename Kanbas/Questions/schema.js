@@ -12,8 +12,7 @@ const schema = new mongoose.Schema(
     },
 
     choices: [{
-      identifier: { type: String },
-      text: { type: String }, // Text of the choice
+      type: String, // Text of the choice
     }],
     choicesAnswer: {
       type: String,
