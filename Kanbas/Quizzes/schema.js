@@ -18,7 +18,7 @@ const schema = new mongoose.Schema(
     },
     shuffleAnswers: { type: Boolean, default: true },
     timeLimit: { type: Number, default: 20 },
-    multipleAttempts: { type: Boolean, default: true },
+    multipleAttempts: { type: Boolean, default: false },
 
     howManyAttempts: { type: Number, default: 1 },
     showCorrectAnswers : { type: Boolean, default: false },
