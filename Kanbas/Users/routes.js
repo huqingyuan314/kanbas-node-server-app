@@ -150,31 +150,55 @@ const createCourse = async (req, res) => {
   app.delete("/api/users/:uid/courses/:cid", unenrollUserFromCourse);
 
 
+  // const findLatestQuizForUser = async (req, res) => {
+  //   const currentUser = req.session["currentUser"];
+  //   if (!currentUser) {
+  //     res.sendStatus(401);
+  //     return;
+  //   }
+  //   let { uid } = req.params;
+  //   if (uid === "current") {
+  //     uid = currentUser._id;
+  //   }
+  //   const quizzes = await quizAttemptsDao.findQuizzesForUser(uid);
+  //   res.json(quizzes);
+  // };
+  // app.get("/api/users/:uid/quizzes", findQuizzesForUser);
 
-  const findQuizzesForUser = async (req, res) => {
-    const currentUser = req.session["currentUser"];
-    if (!currentUser) {
-      res.sendStatus(401);
-      return;
-    }
-    let { uid } = req.params;
-    if (uid === "current") {
-      uid = currentUser._id;
-    }
-    const quizzes = await quizAttemptsDao.findQuizzesForUser(uid);
-    res.json(quizzes);
-  };
-  app.get("/api/users/:uid/quizzes", findQuizzesForUser);
+  
+app.get("/api/users/:uid/quizzes/:qid/latest-attempt", async (req, res) => {
+  const { uid, qid } = req.params;
+  try {
+      const attempt = await quizAttemptsDao.findLatestAttemptForUser(uid, qid);
+      if (!attempt) {
+          res.status(404).send({ message: "No attempts found" });
+          return;
+      }
+      res.send(attempt);
+  } catch (error) {
+      console.error("Failed to fetch latest quiz attempt:", error);
+      res.status(500).send({ message: "Internal Server Error" });
+  }
+});
 
   const attemptUserInQuiz = async (req, res) => {
     let { uid, qid } = req.params;
+    const { answers, score, isCompleted, attemptNumber } = req.body;
+  
     if (uid === "current") {
       const currentUser = req.session["currentUser"];
       uid = currentUser._id;
     }
-    const status = await quizAttemptsDao.attemptUserInQuiz(uid, qid);
-    res.send(status);
+    
+    try {
+      const status = await quizAttemptsDao.attemptUserInQuiz(uid, qid, answers, score, isCompleted, attemptNumber);
+      res.status(201).send(status);
+    } catch (error) {
+      console.error("Failed to attempt quiz:", error);
+      res.status(500).send({ error: "Failed to attempt quiz" });
+    }
   };
+  
   app.post("/api/users/:uid/quizzes/:qid", attemptUserInQuiz);
 
 }

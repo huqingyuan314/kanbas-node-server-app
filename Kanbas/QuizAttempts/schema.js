@@ -10,7 +10,7 @@ const schema = new mongoose.Schema(
     answerText: [String], // an array
     correct: Boolean
   }],
-   score: Number,
+   score: { type: Number, default: 0 },
    attemptDate: { type: Date, default: Date.now },
    isCompleted: { type: Boolean, default: false }, // To ensure answers are not changed post submission
    attemptNumber: { type: Number, default: 1 }, // Track the attempt number
