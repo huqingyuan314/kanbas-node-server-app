@@ -168,6 +168,21 @@ const findAttemptsForUser = async (req, res) => {
 app.get("/api/users/:uid/quizzes/:qid/attempts", findAttemptsForUser);
 
 
+const getLatestAttemptNumber = async (req, res) => {
+  const currentUser = req.session["currentUser"];
+  // if (!currentUser) {
+  //   res.sendStatus(401);
+  //   return;
+  // }
+  let { uid, qid } = req.params;
+  if (uid === "current") {
+    uid = currentUser._id;
+  }
+  const attemptNumber = await quizAttemptsDao.getLatestAttemptNumber(uid, qid);
+  res.send(attemptNumber);
+};
+app.get("/api/users/:uid/quizzes/:qid/attemptNumber", getLatestAttemptNumber);
+
 
   const attemptUserInQuiz = async (req, res) => {
     let { uid, qid } = req.params;

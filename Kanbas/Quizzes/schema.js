@@ -18,9 +18,11 @@ const schema = new mongoose.Schema(
     },
     shuffleAnswers: { type: Boolean, default: true },
     timeLimit: { type: Number, default: 20 },
-    multipleAttempts: { type: Boolean, default: false },
+    multipleAttempts: { type: Boolean, default: true },
+
     howManyAttempts: { type: Number, default: 1 },
     showCorrectAnswers : { type: Boolean, default: false },
+
     accessCode: { type: String, default: "" },
     oneQuestionAtATime : { type: Boolean, default: true },
     webcamRequired: { type: Boolean, default: false },
@@ -39,7 +41,7 @@ const schema = new mongoose.Schema(
       default: new Date('2025-01-14')
     },
 
-    numOfQuestions: { type: Number, default: 10 },
+    numOfQuestions: { type: Number, default: 0 },
 
     published: { type: Boolean, default: false},
 
