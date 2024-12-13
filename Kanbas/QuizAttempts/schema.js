@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const schema = new mongoose.Schema(
  {
+   attemptId: { type: mongoose.Schema.Types.ObjectId, ref: "QuizAttemptModel" },
    quiz: { type: mongoose.Schema.Types.ObjectId, ref: "QuizModel" },
    user:   { type: mongoose.Schema.Types.ObjectId, ref: "UserModel"   },
 

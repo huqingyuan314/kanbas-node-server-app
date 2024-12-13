@@ -1,14 +1,8 @@
 import model from "./model.js";
 
-// export async function findLatestQuizForUser(userId) {
-//  const quizAttempts = await model.find({ user: userId }).populate("quiz");
-//  return quizAttempts.map((quizAttempt) => quizAttempt.quiz);
-// }
 
-export const findLatestAttemptForUser = async (userId, quizId) => {
-    return model.findOne({ user: userId, quiz: quizId })
-                            .sort({ attemptDate: -1 })
-                            .exec();
+export const findAttemptsForUser = async (userId, quizId) => {
+    return model.find({ user: userId, quiz: quizId });
 };
 
 
